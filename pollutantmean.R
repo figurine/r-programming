@@ -11,4 +11,14 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
 
         ## Return the mean of the pollutant across all monitors list
         ## in the 'id' vector (ignoring NA values)
+  fileList <- list.files(path = directory, full.names = TRUE)
+  data <- data.frame()
+  for (i in id) {
+    data <- rbind(data, read.csv(fileList[i]))
+  }
+  if (pollutant == "sulfate") {
+    mean(data$sulfate, na.rm = TRUE)
+  }else if (pollutant == "nitrate") {
+    mean(data$nitrate, na.rm = TRUE)
+  }
 }
